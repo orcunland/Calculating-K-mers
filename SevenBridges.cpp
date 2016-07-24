@@ -6,9 +6,6 @@
 #include <vector>
 #include <unistd.h>
 
-std::unordered_map<std::string, int> kmerMap;
-std::vector<KmerCouple> mostFrequentKmers;
-
 struct KmerCouple {
 	std::string key;
 	int count;
@@ -22,7 +19,10 @@ struct isBigger
 	}
 };
 
-bool isAvailable(std::string kmer, int count)
+std::unordered_map<std::string, int> kmerMap;
+std::vector<KmerCouple> mostFrequentKmers;
+
+bool isAvailable(std::string const& kmer, int count)
 {
 	KmerCouple tempKmerCouple = mostFrequentKmers.back();
 	bool isAvailableFlag = true;
@@ -39,7 +39,7 @@ bool isAvailable(std::string kmer, int count)
 	return (count > tempKmerCouple.count) & isAvailableFlag;
 }
 
-void insertAndSortVector(int length, std::string kmer, int count)
+void insertAndSortVector(int length, std::string const& kmer, int count)
 {
 	if (mostFrequentKmers.size() < length || isAvailable(kmer, count)) 
 	{
@@ -50,7 +50,7 @@ void insertAndSortVector(int length, std::string kmer, int count)
 		sort(mostFrequentKmers.begin(), mostFrequentKmers.end(), isBigger());
 
 		// Eliminating extra ones
-		// This is for showing only the desired numbered K-mers
+		// This is for showing only the desired numbered K-Mers
 		if (mostFrequentKmers.size() > length) 
 		{
 			mostFrequentKmers.pop_back();
@@ -58,7 +58,7 @@ void insertAndSortVector(int length, std::string kmer, int count)
 	}
 }
 
-void countKmers(std::string line, int k, int length)
+void countKmers(std::string const& line, int k, int length)
 {
 
 	std::string kmer;
@@ -82,7 +82,7 @@ void countKmers(std::string line, int k, int length)
 
 int main(int argc, char **argv)
 {
-	char* filename;
+	char* filename = "test.fastq";
 	int k = 30;
 	int top = 25;
 	char c;
