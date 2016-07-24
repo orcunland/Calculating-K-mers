@@ -27,6 +27,7 @@ The program should accept inputs via command line arguments only. The user shoul
 
 ##Usage:
 `g++ SevenBridges.cpp -o sevenbridges` 
+
 `./sevenbridges -f test.fastq -k 30 -t 10`
 
 or
